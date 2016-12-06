@@ -5,7 +5,6 @@ module.exports = function (app) {
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     res.header("X-Powered-By",' 3.2.1');
     res.header("Content-Type", 'application/json');
-    // res.header("Content-Type", "application/json");
     next();
   });
   app.get('/', function(req, res) {
@@ -14,4 +13,5 @@ module.exports = function (app) {
   app.use('/login', require('./login'));
   app.use('/logout', require('./logout'));
   app.use('/posts', require('./posts'));
+  app.use('/register', require('./register'));
 };
