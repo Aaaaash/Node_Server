@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var router = express.Router();
 
-var UserModel = require('../models/users');
+var UserModel = require('../lib/mongo');
 var jsonParser = bodyParser.json()
 
 router.post('/', jsonParser, function(req, res, next) {
@@ -23,25 +23,15 @@ router.post('/', jsonParser, function(req, res, next) {
     bio: bio,
     avatar: avatar
   };
-  UserModel.create(user)
-    .then(function (result) {
-      console.log(result);
-      // 此 user 是插入 mongodb 后的值，包含 _id
-      user = result.ops[0];
-      // 将用户信息存入 session
-      delete user.password;
-      req.session.user = user;
-      // 写入 flash
-      req.flash('success', '注册成功');
-      // 跳转到首页
-    })
-    .catch(function (e) {
-      // 用户名被占用则跳回注册页，而不是错误页
-      if (e.message.match('E11000 duplicate key')) {
-        req.flash('error', '用户名已被占用');
-      }
-      next(e);
-    });
+  UserModel.create(user, function(a, b) {
+    if(!user) {
+      return res.status(404).json({ code: -1, message: '没有这个用户' });
+    }
+    if(password !== sha1(user.password)) {
+      return res.status(401).json({ code: -1, message: '密码错误' });
+    }
+    return res.status(200).json({ code: 0, message: 'ok', token: req.sessionID });
+  });
 });
 
 module.exports = router;
