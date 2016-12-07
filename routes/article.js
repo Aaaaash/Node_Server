@@ -6,15 +6,15 @@ router.get('/', function(req, res, next) {
   res.send(req.flash());
 });
 
-router.post('/', function(req, res, next) {
+router.post('/create', function(req, res, next) {
   res.send(req.flash());
 });
 
-router.get('/:postId', function(req, res, next) {
+router.get('/:articleID', function(req, res, next) {
   res.send(req.flash());
 });
 
-router.get('/:postId/remove', function(req, res, next) {
+router.get('/:articleID/remove', function(req, res, next) {
   res.send(req.flash());
 });
 
