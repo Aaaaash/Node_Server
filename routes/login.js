@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var sha1 = require('sha1');
-var UserModel = require('../lib/mongo');
+var UserModel = require('../lib/mongo').UserModel;
 
 router.post('/', function(req, res, next) {
   var email = req.body.email;
