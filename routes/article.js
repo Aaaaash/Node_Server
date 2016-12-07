@@ -5,12 +5,13 @@ var ArticleModel = require('../lib/mongo').ArticleModel;
 
 // 获取所有文章
 router.get('/', function(req, res, next) {
-  res.send(req.flash());
+  ArticleModel.find({}, { __v: 0 }, function(err, article) {
+    return res.status(200).json({ code: 0, message: 'ok', data: article });
+  });
 });
 
 // 创建文章
 router.post('/create', function(req, res, next) {
-  console.log(req.body);
   var title = req.body.title;
   var tags = req.body.tags;
   var content = req.body.content;
