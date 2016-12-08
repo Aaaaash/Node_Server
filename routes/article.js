@@ -6,7 +6,9 @@ var ArticleModel = require('../lib/mongo').ArticleModel;
 // 获取所有文章
 router.get('/', function(req, res, next) {
   ArticleModel.find({}, { __v: 0 }, function(err, article) {
-    return res.status(200).json({ code: 0, message: 'ok', data: article });
+    setTimeout(function() {
+      return res.status(200).json({ code: 0, message: 'ok', data: article });
+    }, 1500);
   });
 });
 

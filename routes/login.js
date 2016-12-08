@@ -18,7 +18,9 @@ router.post('/', function(req, res, next) {
     var token = jwt.sign({id: user._id}, 'blog');
     var expiresIn = new Date();
   	expiresIn = expiresIn.setDate(expiresIn.getDate() + 15);
-    return res.status(200).json({ code: 0, message: 'ok', token: token, expiresIn: parseInt(expiresIn/1000) });
+    setTimeout(function() {
+      return res.status(200).json({ code: 0, message: 'ok', token: token, expiresIn: parseInt(expiresIn/1000) });
+    }, 1500);
   });
 });
 
