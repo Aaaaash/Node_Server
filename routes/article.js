@@ -5,7 +5,11 @@ var ArticleModel = require('../lib/mongo').ArticleModel;
 
 // 获取所有文章
 router.get('/', function(req, res, next) {
-  ArticleModel.find({}, { __v: 0 }, function(err, article) {
+  var query={};
+  if(req.query.title) {
+    query['title']=new RegExp(req.query.title);//模糊查询参数
+  }
+  ArticleModel.find(query, { __v: 0 }, function(err, article) {
     setTimeout(function() {
       return res.status(200).json({ code: 0, message: 'ok', data: article });
     }, 1500);
