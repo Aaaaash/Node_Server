@@ -44,7 +44,12 @@ router.post('/create', function(req, res, next) {
 
 // 获取一篇文章
 router.get('/:articleID', function(req, res, next) {
-  res.send(req.flash());
+  var id = req.params.articleID;
+  ArticleModel.findOne({ _id: id }, { __v: 0, _id:0 }, function(err, article) {
+    setTimeout(function() {
+      return res.status(200).json({ code: 0, message: 'ok', data: article });
+    }, 1500);
+  });
 });
 
 // 删除一篇文章
