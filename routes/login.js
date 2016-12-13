@@ -7,6 +7,7 @@ var UserModel = require('../lib/mongo').UserModel;
 router.post('/', function(req, res, next) {
   var email = req.body.email;
   var password = req.body.password;
+  console.log(req.body);
   UserModel.findOne({ email: email }, function(err, user) {
     if (err) throw err;
     if(!user) {
