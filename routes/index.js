@@ -3,6 +3,7 @@ module.exports = function (app) {
   app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
     next();
   });
@@ -16,4 +17,5 @@ module.exports = function (app) {
   app.use('/userInfo', require('./user'));
   app.use('/article', require('./article'));
   app.use('/register', require('./register'));
+  app.use('/comments', require('./comments'));
 };

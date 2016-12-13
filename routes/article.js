@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 });
 
 // 创建文章
-router.post('/create', function(req, res, next) {
+router.post('/', function(req, res, next) {
   var title = req.body.title;
   var tags = req.body.tags;
   var content = req.body.content;
@@ -53,7 +53,7 @@ router.get('/:articleID', function(req, res, next) {
 });
 
 // 删除一篇文章
-router.get('/:articleID/remove', function(req, res, next) {
+router.delete('/:articleID', function(req, res, next) {
   res.send(req.flash());
 });
 
