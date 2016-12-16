@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
   ArticleModel.find(query, { __v: 0 }, function (err, article) {
     setTimeout(function () {
       return res.status(200).json({ code: 0, message: 'ok', data: article });
-    }, 1500);
+    }, 500);
   });
 });
 
