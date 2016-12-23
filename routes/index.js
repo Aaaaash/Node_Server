@@ -13,7 +13,7 @@ module.exports = function (app) {
     return res.json({'status':-1, 'result':err.stack})
   });
   app.get('/', function(req, res) {
-    res.redirect('/article');
+    res.redirect('/build');
   });
   app.use('/login', require('./login'));
   app.use('/logout', require('./logout'));
