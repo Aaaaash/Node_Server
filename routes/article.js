@@ -141,13 +141,19 @@ router.put('/:articleID', function(req, res, next) {
     if (err) throw err;
     setTimeout(() => {
       return res.status(200).json({ code: 0, message: 'ok' });
-    }, 500)
+    }, 500);
   });
 });
 
 // 删除一篇文章
 router.delete('/:articleID', function (req, res, next) {
-  res.send(req.flash());
+  var id = req.params.articleID;
+  ArticleModel.remove({ _id: id }, function(err, response) {
+    if(err) throw err;
+    setTimeout(() => {
+      return res.status(200).json({ code: 0, message: 'ok' });
+    }, 500);
+  });
 });
 
 module.exports = router;
