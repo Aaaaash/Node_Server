@@ -19,7 +19,7 @@ var server = require('http').Server(app);
 // });
 // 路由
 routes(app);
-
+app.use(express.static(__dirname + '/build'));
 // 监听端口，启动程序
 server.listen(config.port, function () {
   console.log(`${pkg.name} listening on port ${config.port}`);
