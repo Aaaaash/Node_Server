@@ -128,6 +128,23 @@ router.get('/:articleID', function (req, res, next) {
   });
 });
 
+// 修改一篇文章
+router.put('/:articleID', function(req, res, next) {
+  var id = req.params.articleID;
+  const body = {
+    title: req.body.title,
+    tags: req.body.tags,
+    content: req.body.content,
+    published: req.body.published,
+  }
+  ArticleModel.update({ _id: id }, { $set: body }, function(err, response) {
+    if (err) throw err;
+    setTimeout(() => {
+      return res.status(200).json({ code: 0, message: 'ok' });
+    }, 500)
+  });
+});
+
 // 删除一篇文章
 router.delete('/:articleID', function (req, res, next) {
   res.send(req.flash());
