@@ -1,8 +1,7 @@
 var app = require('express')();
 var config = require('config-lite');
 var routes = require('./routes');
-var pkg = require('./package');
-
+var pkg = require('./package')
 var server = require('http').Server(app);
 // var io = require('socket.io')(server);
 
