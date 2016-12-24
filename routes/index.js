@@ -9,7 +9,7 @@ module.exports = function (app) {
   });
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-  app.use(function(err, req, res, next) { 
+  app.use(function(err, req, res, next) {
     return res.json({'status':-1, 'result':err.stack})
   });
   app.get('/', function(req, res) {

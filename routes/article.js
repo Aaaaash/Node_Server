@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var ArticleModel = require('../lib/mongo').ArticleModel;
+var CommentsModel = require('../lib/mongo').CommentsModel;
 
 // 获取所有文章
 router.get('/', function (req, res, next) {
@@ -94,7 +95,7 @@ router.get('/:articleID', function (req, res, next) {
         title: '',
       }
     };
-  
+
     ArticleModel.find(
       {createAt: {"$gt": article.createAt}},
       { __v: 0, tags: 0 , content: 0},
@@ -150,9 +151,12 @@ router.delete('/:articleID', function (req, res, next) {
   var id = req.params.articleID;
   ArticleModel.remove({ _id: id }, function(err, response) {
     if(err) throw err;
-    setTimeout(() => {
-      return res.status(200).json({ code: 0, message: 'ok' });
-    }, 500);
+    CommentsModel.remove({ articleID: id }, function(err, response) {
+      if(err) throw err;
+      setTimeout(() => {
+        res.status(200).json({ code: 0, message: 'ok' });
+      }, 500);
+    })
   });
 });
 
