@@ -7,15 +7,13 @@ var router = express.Router();
 var UserModel = require('../lib/mongo').UserModel;
 var jsonParser = bodyParser.json()
 
-router.post('/', function(req, res, next) {
+router.put('/', function(req, res, next) {
   var email = req.body.email;
   var name = req.body.name;
   var gender = req.body.gender;
   var bio = req.body.bio;
   var avatar = req.body.avatar;
   var password = req.body.password;
-  password = password;
-
   var user = {
     email: email,
     name: name,
@@ -25,13 +23,12 @@ router.post('/', function(req, res, next) {
     avatar: avatar
   };
   UserModel.create(user, function(err, user) {
-    // if(!user) {
-    //   return res.status(404).json({ code: -1, message: '没有这个用户' });
-    // }
-    // if(password !== sha1(user.password)) {
-    //   return res.status(401).json({ code: -1, message: '密码错误' });
-    // }
-    return res.status(200).json({ code: 0, message: 'ok' });
+    if (err) throw err;
+    if(user) {
+      setTimeout(() => {
+        return res.status(200).json({ code: 0, message: 'ok' });
+      }, 500);
+    }
   });
 });
 

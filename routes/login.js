@@ -13,7 +13,7 @@ router.post('/', function(req, res, next) {
     if(!user) {
       return res.status(404).json({ code: -1, message: '没有这个用户' });
     }
-    if(password !== sha1(user.password)) {
+    if(password !== user.password) {
       return res.status(401).json({ code: -1, message: '密码错误' });
     }
     var token = jwt.sign({id: user._id, author: user.name}, 'blog');
